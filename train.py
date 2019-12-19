@@ -18,7 +18,7 @@ from libs.base import get_params_number
 import sys
 
 if len(sys.argv)<=5:
-    print("write arguments!")
+    print("write arguments: text, train text, model name, batch size epoch count")
     exit(1)
 
 _text = sys.argv[1]
@@ -42,7 +42,7 @@ test_texts = all_chunks[TRAIN_SPLIT:]
 print("Learn size:", len(train_texts))
 print("Valid size:", len(test_texts))
 
-BPE_MODEL_FILENAME = './models/kpss.yttm'
+BPE_MODEL_FILENAME = './models/' + _model_name + '.yttm'
 TRAIN_TEXTS_FILENAME = './texts/'+_text_train
 save_texts_to_file(train_texts, TRAIN_TEXTS_FILENAME)
 yttm.BPE.train(data=TRAIN_TEXTS_FILENAME, vocab_size=1000, model=BPE_MODEL_FILENAME)
@@ -173,8 +173,8 @@ print('Params count', get_params_number(torch_transf_model))
                                             test_dataset,
                                             lm_cross_entropy,
                                             lr=2e-3,
-                                            epoch_n=_epoch_count,
-                                            batch_size=_batch_size,
+                                            epoch_n=int(_epoch_count),
+                                            batch_size=int(_batch_size),
                                             device='cuda',
                                             early_stopping_patience=50,
                                             max_batches_per_epoch_train=1000,
