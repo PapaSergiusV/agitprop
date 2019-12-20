@@ -17,15 +17,15 @@ from libs.base import get_params_number
 
 import sys
 
-if len(sys.argv)<=5:
-    print("write arguments: text, train text, model name, batch size epoch count")
+if len(sys.argv)<=4:
+    print("write arguments: text, model name, batch size, epoch count")
     exit(1)
 
 _text = sys.argv[1]
-_text_train = sys.argv[2]
-_model_name = sys.argv[3]
-_batch_size = sys.argv[4]
-_epoch_count = sys.argv[5]
+_model_name = sys.argv[2]
+_batch_size = sys.argv[3]
+_epoch_count = sys.argv[4]
+_text_train = 'train_'+_text
 
 init_random_seed()
 
@@ -45,7 +45,7 @@ print("Valid size:", len(test_texts))
 BPE_MODEL_FILENAME = './models/' + _model_name + '.yttm'
 TRAIN_TEXTS_FILENAME = './texts/'+_text_train
 save_texts_to_file(train_texts, TRAIN_TEXTS_FILENAME)
-yttm.BPE.train(data=TRAIN_TEXTS_FILENAME, vocab_size=1000, model=BPE_MODEL_FILENAME)
+yttm.BPE.train(data=TRAIN_TEXTS_FILENAME, vocab_size=500, model=BPE_MODEL_FILENAME)
 tokenizer = yttm.BPE(BPE_MODEL_FILENAME)
 
 print("TOKENS:")
@@ -181,5 +181,5 @@ print('Params count', get_params_number(torch_transf_model))
                                             max_batches_per_epoch_val=1000,
                                             lr_scheduler_ctor=lr_scheduler)
 
-torch.save(best_torch_transf_model.state_dict(), './models/'+_model_name)
+torch.save(best_torch_transf_model.state_dict(), './models/'+_model_name + '.pth')
 
