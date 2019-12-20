@@ -17,10 +17,10 @@ Agitprop project - Проект разработки генератора тек
 
 Корпус для обучения располагается в папке texts, модели в папке models
 
-`python3 train.py text.txt text_train.txt result_model.pth 128 1000`
+`python3 train.py text.txt result_model 128 1000`
 
 `text.txt` и `text_train.txt` - тексты для обучения нейросети. Должны располагаться в папке datasets<br/>
-`result_model.pth` - имя модели. Будет сохранена в папку models<br/>
+`result_model` - имя модели. Будет сохранена в папку models<br/>
 `128` - batch size<br/>
 `1000` - количество эпох<br/>
 
